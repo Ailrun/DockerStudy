@@ -14,6 +14,8 @@ CentOS7 에서 실행시 설치되도록 하는 Script
    - **모든 Docker 사용자들이 Build 해서 사용할 수 있다.**
 2. Container
    - **Image 가 실행**되는 객체.
+3. Host
+   - Docker 를 실행시키는 실제 Computer.
 
 ## 기본 Command Line Interface (CLI)
 
@@ -62,9 +64,20 @@ CentOS7 에서 실행시 설치되도록 하는 Script
    - 실행할 명령어들을 작성한다.
    - Package 설치 등이 가능하다.
    - `RUN apt-get -y update && apt-get install -y fortunes` 와 같이 사용 가능하다.
+1. `ENTRYPOINT` 문
+   - `docker run` 을 하였을 때 실행되는 명령어를 작성한다.
+   - `ENTRYPOINT /usr/games/fortune -a | cowsay` 또는 `ENTRYPOINT ["/bin/echo", "Message"]` 와 같이 사용 가능하다.
 1. `CMD` 문
-   - 최종적으로 실행할 명령어를 작성한다.
-   - `CMD /usr/games/fortune -a | cowsay` 와 같이 사용 가능하다.
+   - `docker run` 을 하였을 때 실행되는 명령어를 작성한다.
+   - `ENTRYPOINT` 문과 비슷하지만, `CMD` 문은 `docker run` 에 넘기는 매개변수에 의해서 값이 덮어써진다. 즉, 매개변수를 넘길 경우 `CMD` 문의 값은 사용되지 않는다.
+   - `CMD /usr/games/fortune -a | cowsay` 또는 `CMD ["/bin/echo", "Message"]` 와 같이 사용 가능하다.
+1. `EXPOSE` 문
+   - Docker Container 의 특정한 Port 를 Host 의 해당 Port 와 연결한다.
+   - Redirection 을 위해서는 `docker run` 의 `-P` 옵션을 사용하도록 한다.
+   - `EXPOSE 80 443` 과 같이 사용 가능하다.
+1. `VOLUMN` 문
+   - Docker Container 의 특정한 Directory 가 Mount 된 Directory 가 되도록 한다.
+   - Host 의 
 1. 그 외의 명령어
    - [Docker Engine Reference][DockerEngineReference] 를 참조한다.
 
